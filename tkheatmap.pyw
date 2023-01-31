@@ -46,7 +46,7 @@ class HeatMap(ttk.Frame):
 
     def popCloseSet(self, n1level, n2level, n3level):
         def scaleDB(level):
-            return int((level+120)*(255/120))
+            return int((level+120)*(255/90))
         r, g, b = scaleDB(n1level), scaleDB(n2level), scaleDB(n3level)
         rgbval = f"#{r:02x}{g:02x}{b:02x}"
         # print("Setting color to", rgbval)
@@ -83,7 +83,7 @@ class HeatMap(ttk.Frame):
         lblNetwork1.grid(row=0, column=0)
         n1level = IntVar()
         n1level.set(-120)
-        sldNetwork1 = ttk.Scale(popframe, from_=-120, to=0, length=240,
+        sldNetwork1 = ttk.Scale(popframe, from_=-120, to=-30, length=240,
                                 orient='horizontal', variable=n1level)
         sldNetwork1.grid(row=1, column=0)
         entNetwork1 = ttk.Entry(popframe, width=5, validate='key',
@@ -95,7 +95,7 @@ class HeatMap(ttk.Frame):
         lblNetwork2.grid(row=2, column=0)
         n2level = IntVar()
         n2level.set(-120)
-        sldNetwork2 = ttk.Scale(popframe, from_=-120, to=0, length=240,
+        sldNetwork2 = ttk.Scale(popframe, from_=-120, to=-30, length=240,
                                 orient='horizontal', variable=n2level)
         sldNetwork2.grid(row=3, column=0)
         entNetwork2 = ttk.Entry(popframe, width=5, validate='key',
@@ -107,7 +107,7 @@ class HeatMap(ttk.Frame):
         lblNetwork3.grid(row=4, column=0)
         n3level = IntVar()
         n3level.set(-120)
-        sldNetwork3 = ttk.Scale(popframe, from_=-120, to=0, length=240,
+        sldNetwork3 = ttk.Scale(popframe, from_=-120, to=-30, length=240,
                                 orient='horizontal', variable=n3level)
         sldNetwork3.grid(row=5, column=0)
         entNetwork3 = ttk.Entry(popframe, width=5, validate='key',
@@ -117,7 +117,7 @@ class HeatMap(ttk.Frame):
         # get the previously set colors, if any
         def rgbToLevels(rgbstr):
             strs = [rgbstr[1:3], rgbstr[3:5], rgbstr[5:7]]
-            return [int(int(s, 16)*(120/255)) - 120 for s in strs]
+            return [int(int(s, 16)*(90/255)) - 120 for s in strs]
         if prevColor := self.mapGrid[i][j].cget("background"):
             # print(prevColor)
             l1, l2, l3 = rgbToLevels(str(prevColor))
